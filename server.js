@@ -5,6 +5,7 @@ var mongo = require('mongodb').MongoClient
 var base62 = require('base62')
 var url = 'mongodb://urlShort:urlShort@ds021026.mlab.com:21026/ahivelasquez'
 var urlLong
+var validate = require('valid-url')
 
 function getRandom () {
   return Math.floor((Math.random() * 100000000) + 1)
@@ -25,31 +26,33 @@ app.get('/new/*', function (req, res) {
     if (err) {
       throw err
     }
+    if (!validate.isUri(urlLong)) {
+      res.send(JSON.stringify({error: 'URL not valid!'}))
+    } else {
+      if (urlLong.slice(0, 4) !== 'http') {
+        urlLong = 'http://' + urlLong
+      }
+      db.collection('url').insert({
+        original: urlLong,
+        short: urlShort,
+        hash: base62.encode(random)
+      })
 
-    if (urlLong.slice(0, 4) !== 'http') {
-      urlLong = 'http://' + urlLong
+      db.collection('url').find({
+        hash: base62.encode(random)},
+        {_id: 0,
+          hash: 0
+        })
+      // db.collection('url').find({ hash: base62.encode(random)})
+        .toArray(function (err, data) {
+          if (err) {
+            throw err
+          }
+          console.log(data)
+          res.send(JSON.stringify(data[0]))
+        })
+      db.close()
     }
-
-    db.collection('url').insert({
-      original: urlLong,
-      short: urlShort,
-      hash: base62.encode(random)
-    })
-
-    db.collection('url').find({
-      hash: base62.encode(random)},
-      {_id: 0,
-        hash: 0
-      })
-    // db.collection('url').find({ hash: base62.encode(random)})
-      .toArray(function (err, data) {
-        if (err) {
-          throw err
-        }
-        console.log(data)
-        res.send(JSON.stringify(data[0]))
-      })
-    db.close()
   })
 })
 app.get('/x/:codice', function (req, res) {
