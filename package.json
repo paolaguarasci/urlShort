@@ -2,17 +2,19 @@
   "name": "",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "start": "node server.js"
   },
   "author": "AhiVelasquez",
   "license": "MIT",
   "dependencies": {
+    "base62": "^1.1.1",
     "express": "^4.14.0",
-    "ipware": "0.0.8",
     "jquery": "^3.1.0",
     "moment": "^2.14.1",
+    "mongodb": "^2.2.9",
+    "mongoose": "^4.6.0",
     "url-parse": "^1.1.3"
   }
 }

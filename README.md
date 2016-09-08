@@ -3,7 +3,7 @@
 ### Usage
 ___
 ```
-/
+/new/https://www.google.it/search?q=example+of+very+long+url&oq=example+of+very+long+url&aqs=chrome..69i57j0l2.10086j0j4&sourceid=chrome&ie=UTF-8
 ```
 
 return:
