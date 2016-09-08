@@ -13,7 +13,7 @@ function getRandom () {
 // TODO controllare perchè non funziona!
 // EDIT è importante specificare la path da risolvere
 // (in questo caso '/')
-app.use('/', express.static('./'))
+// app.use('/howto', express.static('./'))
 
 app.get('/new/*', function (req, res) {
   var urlShort = 'http://' + req.headers.host + '/'
@@ -25,11 +25,11 @@ app.get('/new/*', function (req, res) {
     if (err) {
       throw err
     }
-    // db.collection('url').findAndModify ({ //PERCHÈ CAZZO NON FUNZIONA?!
-    //   query: {hash: base62.encode(random)},
-    //   update: {original: urlLong, short: urlShort, hash: base62.encode(random) },
-    //   upsert: true
-    // })
+
+    if (urlLong.slice(0, 4) !== 'http') {
+      urlLong = 'http://' + urlLong
+    }
+
     db.collection('url').insert({
       original: urlLong,
       short: urlShort,
@@ -68,6 +68,7 @@ app.get('/:hash', function (req, res) {
         if (err) {
           throw err
         }
+        console.log(data.original)
         res.redirect(data.original)
       })
 
