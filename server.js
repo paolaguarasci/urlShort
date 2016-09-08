@@ -13,10 +13,10 @@ function getRandom () {
 // TODO controllare perchè non funziona!
 // EDIT è importante specificare la path da risolvere
 // (in questo caso '/')
-// app.use('/howto', express.static('./'))
+app.use('/', express.static('./'))
 
 app.get('/new/*', function (req, res) {
-  var urlShort = 'http://' + req.headers.host + '/'
+  var urlShort = 'http://' + req.headers.host + '/x/'
   var random = getRandom()
   urlLong = req.url.slice(5)
   urlShort += base62.encode(random)
@@ -52,8 +52,9 @@ app.get('/new/*', function (req, res) {
     db.close()
   })
 })
-app.get('/:hash', function (req, res) {
-  var hash = req.params.hash
+app.get('/x/:codice', function (req, res) {
+  var hash = req.params.codice
+  console.log('hash: ' + hash)
   if (hash) {
     mongo.connect(url, function (err, db) {
       if (err) {
