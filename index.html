@@ -12,15 +12,33 @@
     <blockquote class="blockquote">
       <p>User stories</p>
       <ol>
-        <ul></ul>
-        <ul></ul>
-        <ul></ul>
+        <li>I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.</li>
+        <li>If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.</li>
+        <li>When I visit that shortened URL, it will redirect me to my original link.</li>
       </ol>
     </blockquote>
-    <p>Example</p>
-    <p><code></code></p>
-    <p>Example</p>
-    <p><code></code></p>
+    <hr>
+    <p>Example new</p>
+    <p><code>https://fcc-url-shortly.herokuapp.com/new/http://www.google.com</code></p>
+    <p>return JSON: <code></br>
+      {</br>
+        original: 'http://www.google.com',</br>
+        short: 'https://fcc-url-shortly.herokuapp.com/xh5xs/'</br>
+    }
+  </code></p>
+  <hr>
+    <p>Example redirect</p>
+    <p><code>https://fcc-url-shortly.herokuapp.com/xh5xs/</code></p>
+    <p>redirect to:</br>
+      <code>http://www.google.com</code></p>
+      <hr>
+      <p>Example wrong url</p>
+      <p><code>https://fcc-url-shortly.herokuapp.com/new/foo</code></p>
+      <p>return JSON: <code></br>
+        {</br>
+      error: 'wrong url'</br>
+      }
+    </code></p>
   </div>
 </body>
 </html>
